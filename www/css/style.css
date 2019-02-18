@@ -1,0 +1,61 @@
+/* Your app styles here */
+
+:root {
+    /* Customize color theme */
+    --f7-theme-color: #35a446;
+    --f7-theme-color-shade: #2e8d3c /* 14% vs. 8% #319740 */;
+    --f7-theme-color-tint: #3cbb50 /* 14% vs. 8% #39b14c */;
+    --f7-theme-color-rgb: 53, 164, 70;
+    --f7-text-color: #35a446;
+    --f7-navbar-text-color: #fff;
+    --f7-bars-text-color: #fff;
+}
+
+.color-gc { color: var(--f7-theme-color) !important; }
+
+.flex-wrap-nowrap {
+    flex-wrap: nowrap;
+}
+
+.navbar {
+    background-color: var(--f7-theme-color);
+}
+
+.navbar .navbar-inner .left a,
+.navbar .navbar-inner .right a {
+    color: #fff;
+}
+
+.navbar .navbar-inner .title {
+    color: #fff;
+}
+
+.gc-status-rent {
+    display: inline-block;
+    border: .4em solid #f00;
+    border-radius: 50%;
+}
+
+.gc-status-return {
+    display: inline-block;
+    border: .4em solid #35a446;
+    border-radius: 50%;
+}
+
+.input-list-format input,
+.input-list-format textarea {
+    color: var(--f7-theme-color) !important;
+    font-weight: bold !important;
+}
+
+.font-weight-bold-inner .item-inner .item-title {
+    font-weight: bold !important;
+}
+
+.color-chip-white .chip-label {
+    color: #fff;
+}
+
+.mr-em-2 {
+    margin-right: 2em;
+}

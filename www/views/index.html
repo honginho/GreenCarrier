@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#35a446">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Green Carrier</title>
+    <link rel="stylesheet" href="../libs/framework7/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="../css/icons.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <f7-app :params="f7params">
+            <!-- Statusbar -->
+            <f7-statusbar></f7-statusbar>
+
+            <!-- Main View -->
+            <f7-view id="main-view" main class="safe-areas">
+                <f7-page>
+                    <!-- FIXME: -->
+                    <f7-navbar>
+                        <f7-nav-left>
+                            <f7-chip text="青食器" class="color-chip-white mr-em-2" media-bg-color="green">
+                                <f7-icon class="" f7="person" slot="media"></f7-icon>
+                            </f7-chip>
+                            <f7-chip text="0" class="color-chip-white" media-bg-color="green">
+                                <f7-icon class="" f7="money_dollar" slot="media"></f7-icon>
+                            </f7-chip>
+                            <!-- <i class="color-white icon f7-icons" style="font-size: 16px;">person</i>
+                            <span class="color-white">青食器</span>
+                            <i class="color-white icon f7-icons" style="font-size: 16px;">money_dollar</i>
+                            <span class="color-white">0</span> -->
+                        </f7-nav-left>
+                        <!-- <f7-nav-title>Green Carrier</f7-nav-title> -->
+                        <f7-nav-right>
+                            <f7-icon class="color-white" f7="gear" size="16" slot="media"></f7-icon>
+                        </f7-nav-right>
+                    </f7-navbar>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <img src="../assets/logo.png" />
+                        </f7-row>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span" width="40">
+                                <f7-button large fill raised href="/status/">租用情況</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span" width="40">
+                                <f7-button large fill raised href="/lend/">租借</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span" width="40">
+                                <f7-button large fill raised href="/report/">損壞回報</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span" width="40">
+                                <f7-button large fill raised href="/others/">其它頁面</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                </f7-page>
+            </f7-view>
+        </f7-app>
+    </div>
+
+    <!-- Page Not Found Template -->
+    <template id="page-not-found">
+        <f7-page>
+            <f7-navbar title="Not found" back-link="Back"></f7-navbar>
+            <f7-block strong>
+                <p>Sorry</p>
+                <p>Requested content not found.</p>
+            </f7-block>
+        </f7-page>
+    </template>
+
+    <!-- TODO: Page Others -->
+    <template id="page-others">
+        <f7-page :page-content="false">
+            <f7-navbar title="其它頁面" back-link="Back"></f7-navbar>
+            <f7-toolbar tabbar bottom>
+                <f7-link tab-link="#tab-settings" tab-link-active>設定</f7-link>
+                <f7-link tab-link="#tab-signup">註冊</f7-link>
+                <f7-link tab-link="#tab-preSignup">創建帳號</f7-link>
+            </f7-toolbar>
+            <f7-tabs swipeable>
+                <!-- Page Settings -->
+                <f7-tab id="tab-settings" class="page-content" tab-active>
+                    <f7-block-title>個人資料</f7-block-title>
+                    <f7-list inline-labels>
+                        <f7-list-input class="input-list-format" type="text" label="姓名" value="青食器" readonly></f7-list-input>
+                        <f7-list-input class="input-list-format" type="text" label="電話" value="0987654321" readonly></f7-list-input>
+                        <f7-list-input class="input-list-format" type="text" label="信箱" value="GreenCarrier@gmail.com" readonly></f7-list-input>
+                    </f7-list>
+                    <f7-block-title>關於</f7-block-title>
+                    <f7-list inline-labels>
+                        <f7-list-input class="input-list-format" type="text" label="版本" value="v1.0.0 Beta" readonly></f7-list-input>
+                        <f7-list-input class="input-list-format" type="text" label="作者" value="青食器團隊" readonly></f7-list-input>
+                        <f7-list-input class="input-list-format" type="textarea" label="簡介" value="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error iusto molestiae deserunt fugiat dolorem temporibus saepe ut et fuga deleniti, accusamus tenetur facere in, nostrum rem dolorum consequuntur? Deserunt, natus." readonly></f7-list-input>
+                    </f7-list>
+                </f7-tab>
+                <!-- Page Signup -->
+                <f7-tab id="tab-signup" class="page-content" style="font-size: 2em;">
+                    <f7-login-screen-title>
+                        <img src="../assets/logo.png" />
+                    </f7-login-screen-title>
+                    <f7-list inline-labels no-hairlines-md>
+                        <f7-list-input type="text" placeholder="請輸入姓名" clear-button>
+                            <f7-icon f7="person" slot="media"></f7-icon>
+                        </f7-list-input>
+
+                        <f7-list-input type="tel" placeholder="請輸入手機號碼" clear-button>
+                            <f7-icon f7="phone" slot="media"></f7-icon>
+                        </f7-list-input>
+
+                        <f7-list-input type="email" placeholder="請輸入 E-mail" clear-button>
+                            <f7-icon f7="email_fill" slot="media"></f7-icon>
+                        </f7-list-input>
+
+                        <f7-list-input type="password" placeholder="請輸入密碼" clear-button>
+                            <f7-icon f7="lock" slot="media"></f7-icon>
+                        </f7-list-input>
+
+                        <f7-list-input type="password" placeholder="再輸入一次密碼" clear-button>
+                            <f7-icon f7="unlock" slot="media"></f7-icon>
+                        </f7-list-input>
+                    </f7-list>
+                    <f7-block>
+                        <f7-row>
+                            <f7-col tag="span">
+                                <f7-button outline href="/signupyes/">取消</f7-button>
+                            </f7-col>
+                            <f7-col tag="span">
+                                <f7-button fill href="/signupyes/">下一步</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                </f7-tab>
+                <!-- Page Pre-Signup -->
+                <f7-tab id="tab-preSignup" class="page-content" style="padding: 1em; font-size: 2em; font-weight: bold;"> <!-- no-toolbar no-navbar no-swipeback login-screen -->
+                    <f7-block style="color: #6e6a2c;">
+                        <p style="margin: 0;"><span style="font-size: 2em;">E</span>VERYONE</p>
+                        <p style="margin: 0; font-size: .8em;">can be a green carrier !</p>
+                    </f7-block>
+                    <f7-block style="padding: 0.8em .6em; color: #6e6a2c;">
+                        <p >開始你的杯子租借...</p>
+                        <p style="font-size: .8em;">首先，你需要創建一個帳號</p>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span">
+                                <f7-button large outline href="/signup/">創建帳號</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                </f7-tab>
+            </f7-tabs>
+        </f7-page>
+    </template>
+
+    <!-- TODO: Page Status -->
+    <template id="page-status">
+        <f7-page>
+            <f7-navbar class="gc-navbar" title="租用情況" back-link="Back"></f7-navbar>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="label-cell">時間</th>
+                            <th class="label-cell">狀態</th>
+                            <th class="label-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label-cell">2019/02/16 11:45</td>
+                            <td class="label-cell">已歸還</td>
+                            <td class="label-cell">
+                                <span class="gc-status-return"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">2019/02/18 14:30</td>
+                            <td class="label-cell">借用中</td>
+                            <td class="label-cell">
+                                <span class="gc-status-rent"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </f7-page>
+    </template>
+
+    <!-- Cordova -->
+    <!--
+    <script src="cordova.js"></script>
+    -->
+
+    <!-- Framework7 library -->
+    <script src="../libs/framework7/js/framework7.bundle.min.js"></script>
+
+    <!-- Vue -->
+    <script src="../libs/vue/vue.min.js"></script>
+
+    <!-- Framework7-Vue plugin -->
+    <script src="../libs/framework7-vue/framework7-vue.bundle.min.js"></script>
+
+    <!-- Your custom app scripts -->
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
