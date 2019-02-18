@@ -42,8 +42,8 @@
     border-radius: 50%;
 }
 
-.input-list-format input,
-.input-list-format textarea {
+input,
+textarea {
     color: var(--f7-theme-color) !important;
     font-weight: bold !important;
 }
