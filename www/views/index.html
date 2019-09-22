@@ -1,234 +1,363 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#35a446">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <title>Green Carrier</title>
-    <link rel="stylesheet" href="../libs/framework7/css/framework7.bundle.min.css">
-    <link rel="stylesheet" href="../css/icons.css">
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="utf-8">
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Green Carrier</title>
+  <link rel="stylesheet" href="libs/framework7/css/framework7.bundle.min.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <div id="app">
-        <f7-app :params="f7params">
-            <!-- Statusbar -->
-            <f7-statusbar></f7-statusbar>
+  <div id="app">
+    <f7-app :params="f7params">
+      <!-- Statusbar -->
+      <f7-statusbar></f7-statusbar>
 
-            <!-- Main View -->
-            <f7-view id="main-view" main class="safe-areas">
-                <f7-page>
-                    <!-- FIXME: -->
-                    <f7-navbar>
-                        <f7-nav-left>
-                            <f7-chip text="青食器" class="color-chip-white mr-em-2" media-bg-color="green">
-                                <f7-icon class="" f7="person" slot="media"></f7-icon>
-                            </f7-chip>
-                            <f7-chip text="0" class="color-chip-white" media-bg-color="green">
-                                <f7-icon class="" f7="money_dollar" slot="media"></f7-icon>
-                            </f7-chip>
-                            <!-- <i class="color-white icon f7-icons" style="font-size: 16px;">person</i>
-                            <span class="color-white">青食器</span>
-                            <i class="color-white icon f7-icons" style="font-size: 16px;">money_dollar</i>
-                            <span class="color-white">0</span> -->
-                        </f7-nav-left>
-                        <!-- <f7-nav-title>Green Carrier</f7-nav-title> -->
-                        <f7-nav-right>
-                            <f7-icon class="color-white" f7="gear" size="16" slot="media"></f7-icon>
-                        </f7-nav-right>
-                    </f7-navbar>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <img src="../assets/banner.png" style="width: 100%;" />
-                        </f7-row>
-                    </f7-block>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <f7-col tag="span" width="40">
-                                <f7-button large fill raised href="/status/">租用情況</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <f7-col tag="span" width="40">
-                                <f7-button large fill raised href="/lend/">租借</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <f7-col tag="span" width="40">
-                                <f7-button large fill raised href="/report/">損壞回報</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <f7-col tag="span" width="40">
-                                <f7-button large fill raised href="/others/">其它頁面</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                </f7-page>
-            </f7-view>
-        </f7-app>
-    </div>
-
-    <!-- Page Not Found Template -->
-    <template id="page-not-found">
-        <f7-page>
-            <f7-navbar title="Not found" back-link="Back"></f7-navbar>
+      <!-- Left Panel -->
+      <f7-panel left reveal theme-dark>
+        <f7-view id="left-panel-view">
+          <f7-page>
+            <f7-navbar title="Left Panel"></f7-navbar>
             <f7-block strong>
-                <p>Sorry</p>
-                <p>Requested content not found.</p>
+              <p>Left panel content goes here</p>
             </f7-block>
-        </f7-page>
-    </template>
+            <f7-block-title>Load page in panel</f7-block-title>
+            <f7-list>
+              <f7-list-item link="./views/index.html" title="To Main"></f7-list-item>
+              <f7-list-item link="/form/" title="Form"></f7-list-item>
+            </f7-list>
+            <f7-block-title>Load page in main view</f7-block-title>
+            <f7-list>
+              <f7-list-item link="/about/" title="About" view="#main-view"
+              panel-close></f7-list-item>
+              <f7-list-item link="/form/" title="Form" view="#main-view"
+              panel-close></f7-list-item>
+            </f7-list>
+          </f7-page>
+        </f7-view>
+      </f7-panel>
 
-    <!-- TODO: Page Others -->
-    <template id="page-others">
-        <f7-page :page-content="false">
-            <f7-navbar title="其它頁面" back-link="Back"></f7-navbar>
-            <f7-toolbar tabbar bottom>
-                <f7-link tab-link="#tab-settings" tab-link-active>設定</f7-link>
-                <f7-link tab-link="#tab-signup">註冊</f7-link>
-                <f7-link tab-link="#tab-preSignup">創建帳號</f7-link>
-            </f7-toolbar>
-            <f7-tabs swipeable>
-                <!-- Page Settings -->
-                <f7-tab id="tab-settings" class="page-content" tab-active>
-                    <f7-block-title>個人資料</f7-block-title>
-                    <f7-list inline-labels>
-                        <f7-list-input class="input-list-format" type="text" label="姓名" value="青食器" readonly></f7-list-input>
-                        <f7-list-input class="input-list-format" type="text" label="電話" value="0987654321" readonly></f7-list-input>
-                        <f7-list-input class="input-list-format" type="text" label="信箱" value="GreenCarrier@gmail.com" readonly></f7-list-input>
-                    </f7-list>
-                    <f7-block-title>關於</f7-block-title>
-                    <f7-list inline-labels>
-                        <f7-list-input class="input-list-format" type="text" label="版本" value="v1.0.0 Beta" readonly></f7-list-input>
-                        <f7-list-input class="input-list-format" type="text" label="作者" value="青食器團隊" readonly></f7-list-input>
-                        <f7-list-input class="input-list-format" type="textarea" label="簡介" value="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error iusto molestiae deserunt fugiat dolorem temporibus saepe ut et fuga deleniti, accusamus tenetur facere in, nostrum rem dolorum consequuntur? Deserunt, natus." readonly></f7-list-input>
-                    </f7-list>
-                </f7-tab>
-                <!-- Page Signup -->
-                <f7-tab id="tab-signup" class="page-content" style="font-size: 2em;">
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <img src="../assets/banner.png" style="width: 100%;" />
-                        </f7-row>
-                    </f7-block>
-                    <f7-list inline-labels no-hairlines-md>
-                        <f7-list-input type="text" placeholder="請輸入姓名" clear-button>
-                            <f7-icon f7="person" slot="media"></f7-icon>
-                        </f7-list-input>
+      <!-- Right Panel -->
+      <f7-panel right cover theme-dark>
+        <f7-view id="right-panel-view">
+          <f7-page>
+            <f7-navbar title="Right Panel" sliding></f7-navbar>
+            <f7-block>
+              <p>Right panel content goes here</p>
+            </f7-block>
+            <f7-block-title>Load page in panel</f7-block-title>
+            <f7-list>
+              <f7-list-item link="/about/" title="About"></f7-list-item>
+              <f7-list-item link="/form/" title="Form"></f7-list-item>
+            </f7-list>
+            <f7-block-title>Load page in main view</f7-block-title>
+            <f7-list>
+              <f7-list-item link="/about/" title="About" view="#main-view"
+              panel-close></f7-list-item>
+              <f7-list-item link="/form/" title="Form" view="#main-view"
+              panel-close></f7-list-item>
+            </f7-list>
+          </f7-page>
+        </f7-view>
+      </f7-panel>
 
-                        <f7-list-input type="tel" placeholder="請輸入手機號碼" clear-button>
-                            <f7-icon f7="phone" slot="media"></f7-icon>
-                        </f7-list-input>
-
-                        <f7-list-input type="email" placeholder="請輸入 E-mail" clear-button>
-                            <f7-icon f7="email_fill" slot="media"></f7-icon>
-                        </f7-list-input>
-
-                        <f7-list-input type="password" placeholder="請輸入密碼" clear-button>
-                            <f7-icon f7="lock" slot="media"></f7-icon>
-                        </f7-list-input>
-
-                        <f7-list-input type="password" placeholder="再輸入一次密碼" clear-button>
-                            <f7-icon f7="unlock" slot="media"></f7-icon>
-                        </f7-list-input>
-                    </f7-list>
-                    <f7-block>
-                        <f7-row>
-                            <f7-col tag="span">
-                                <f7-button outline href="/signupyes/">取消</f7-button>
-                            </f7-col>
-                            <f7-col tag="span">
-                                <f7-button fill href="/signupyes/">下一步</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                </f7-tab>
-                <!-- Page Pre-Signup -->
-                <f7-tab id="tab-preSignup" class="page-content" style="padding: 1em; font-size: 2em; font-weight: bold;"> <!-- no-toolbar no-navbar no-swipeback login-screen -->
-                    <f7-block style="color: #6e6a2c;">
-                        <p style="margin: 0;"><span style="font-size: 2em;">E</span>VERYONE</p>
-                        <p style="margin: 0; font-size: .8em;">can be a green carrier !</p>
-                    </f7-block>
-                    <f7-block style="padding: 0.8em .6em; color: #6e6a2c;">
-                        <p >開始你的杯子租借...</p>
-                        <p style="font-size: .8em;">首先，你需要創建一個帳號</p>
-                    </f7-block>
-                    <f7-block>
-                        <f7-row class="justify-content-center">
-                            <f7-col tag="span">
-                                <f7-button large outline href="/signup/">創建帳號</f7-button>
-                            </f7-col>
-                        </f7-row>
-                    </f7-block>
-                </f7-tab>
-            </f7-tabs>
-        </f7-page>
-    </template>
-
-    <!-- TODO: Page Status -->
-    <template id="page-status">
+      <!-- Main View -->
+      <f7-view id="main-view" main class="safe-areas">
         <f7-page>
-            <f7-navbar class="gc-navbar" title="租用情況" back-link="Back"></f7-navbar>
-            <div class="data-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="label-cell">時間</th>
-                            <th class="label-cell">狀態</th>
-                            <th class="label-cell"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="label-cell">2019/02/16 11:45</td>
-                            <td class="label-cell">已歸還</td>
-                            <td class="label-cell">
-                                <span class="gc-status-return"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label-cell">2019/02/18 14:30</td>
-                            <td class="label-cell">借用中</td>
-                            <td class="label-cell">
-                                <span class="gc-status-rent"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+          <f7-navbar>
+            <f7-nav-left>
+              <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu"
+              panel-open="left"></f7-link>
+            </f7-nav-left>
+            <f7-nav-title>My App</f7-nav-title>
+            <f7-nav-right>
+              <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu"
+              panel-open="right"></f7-link>
+            </f7-nav-right>
+          </f7-navbar>
+          <f7-toolbar bottom>
+            <f7-link>Left Link</f7-link>
+            <f7-link>Right Link</f7-link>
+          </f7-toolbar>
+          <f7-block strong>
+            <p>Here is your blank Framework7 app. Let's see what we have here.</p>
+          </f7-block>
+          <f7-block-title>Navigation</f7-block-title>
+          <f7-list>
+            <f7-list-item link="/about/" title="About"></f7-list-item>
+            <f7-list-item link="/form/" title="Form"></f7-list-item>
+          </f7-list>
+          <f7-block-title>Modals</f7-block-title>
+          <f7-block strong>
+            <f7-row>
+              <f7-col width="50">
+                <f7-button fill raised popup-open="#popup">Popup</f7-button>
+              </f7-col>
+              <f7-col width="50">
+                <f7-button fill raised login-screen-open="#login-screen">Login Screen</f7-button>
+              </f7-col>
+            </f7-row>
+          </f7-block>
+          <f7-block-title>Panels</f7-block-title>
+          <f7-block strong>
+            <f7-row>
+              <f7-col width="50">
+                <f7-button fill raised panel-open="left">Left Panel</f7-button>
+              </f7-col>
+              <f7-col width="50">
+                <f7-button fill raised panel-open="right">Right Panel</f7-button>
+              </f7-col>
+            </f7-row>
+          </f7-block>
+          <f7-list>
+            <f7-list-item link="/dynamic-route/blog/45/post/125/?foo=bar#about" title="Dynamic Route"></f7-list-item>
+            <f7-list-item link="/load-something-that-doesnt-exist/" title="Default Route (404)"></f7-list-item>
+          </f7-list>
         </f7-page>
-    </template>
+      </f7-view>
 
-    <!-- Cordova -->
-    <!--
-    <script src="cordova.js"></script>
-    -->
+      <!-- Popup -->
+      <f7-popup id="popup">
+        <f7-view>
+          <f7-page>
+            <f7-navbar title="Popup">
+              <f7-nav-right>
+                <f7-link popup-close>Close</f7-link>
+              </f7-nav-right>
+            </f7-navbar>
+            <f7-block>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto. Cupiditate laudantium rem nesciunt numquam, ipsam. Voluptates omnis, a inventore atque ratione aliquam. Omnis iusto nemo quos ullam obcaecati, quod.</f7-block>
+          </f7-page>
+        </f7-view>
+      </f7-popup>
 
-    <!-- Framework7 library -->
-    <script src="../libs/framework7/js/framework7.bundle.min.js"></script>
+      <!-- Login Screen -->
+      <f7-login-screen id="login-screen">
+        <f7-view>
+          <f7-page login-screen>
+            <f7-login-screen-title>Login</f7-login-screen-title>
+            <f7-list form>
+              <f7-list-input
+                label="Username"
+                name="username"
+                placeholder="Username"
+                type="text"
+              ></f7-list-input>
+              <f7-list-input
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="Password"
+              ></f7-list-input>
+            </f7-list>
+            <f7-list>
+              <f7-list-button title="Sign In" login-screen-close></f7-list-button>
+              <f7-block-footer>
+                <p>Click Sign In to close Login Screen</p>
+              </f7-block-footer>
+            </f7-list>
+          </f7-page>
+        </f7-view>
+      </f7-login-screen>
+    </f7-app>
+  </div>
 
-    <!-- Vue -->
-    <script src="../libs/vue/vue.min.js"></script>
+  <!-- About Page Template -->
+  <template id="page-about">
+    <f7-page>
+      <f7-navbar title="About" back-link="Back"></f7-navbar>
+      <f7-block-title>About My App</f7-block-title>
+      <f7-block strong>
+        <p>Here is About page!</p>
+        <p>You can go <f7-link back>back</f7-link>.</p>
+        <p>Mauris posuere sit amet metus id venenatis. Ut ante dolor, tempor nec commodo rutrum, varius at sem. Nullam ac nisi non neque ornare pretium. Nulla mauris mauris, consequat et elementum sit amet, egestas sed orci. In hac habitasse platea dictumst.</p>
+        <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis. Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu metus elit. Ut vel diam dolor.</p>
+      </f7-block>
+    </f7-page>
+  </template>
 
-    <!-- Framework7-Vue plugin -->
-    <script src="../libs/framework7-vue/framework7-vue.bundle.min.js"></script>
+  <!-- Form Page Template -->
+  <template id="page-form">
+    <f7-page>
+      <f7-navbar title="Form" back-link="Back"></f7-navbar>
+      <f7-block-title>Form Example</f7-block-title>
+      <f7-list form>
+        <f7-list-input
+          label="Name"
+          type="text"
+          placeholder="Name"
+        ></f7-list-input>
+        <f7-list-input
+          label="E-mail"
+          type="email"
+          placeholder="E-mail"
+        ></f7-list-input>
+        <f7-list-input
+          label="URL"
+          type="url"
+          placeholder="URL"
+        ></f7-list-input>
+        <f7-list-input
+          label="Password"
+          type="password"
+          placeholder="Password"
+        ></f7-list-input>
+        <f7-list-input
+          label="Phone"
+          type="tel"
+          placeholder="Phone"
+        ></f7-list-input>
+        <f7-list-input
+          label="Gender"
+          type="select"
+        >
+          <option selected>Male</option>
+          <option>Female</option>
+        </f7-list-item>
+        <f7-list-input
+          label="Birth date"
+          type="date"
+          placeholder="Birth date" value="2014-04-30"
+        ></f7-list-input>
+        <f7-list-item title="Toggle">
+          <f7-toggle slot="after"></f7-toggle>
+        </f7-list-item>
+        <f7-list-input
+          label="Slider"
+          :input="false"
+        >
+          <f7-range slot="input" min="0" max="100" value="50" step="1" :label="true"></f7-range>
+        </f7-list-input>
+        <f7-list-input
+          label="Textarea"
+          type="textarea"
+          placeholder="Bio"
+        ></f7-list-input>
+        <f7-list-input
+          label="Resizable"
+          type="textarea"
+          placeholder="Bio"
+          resizable
+        ></f7-list-input>
+      </f7-list>
 
-    <!-- Your custom app scripts -->
-    <script src="../js/main.js"></script>
+      <f7-block-title>Checkbox group</f7-block-title>
+      <f7-list form>
+        <f7-list-item v-for="n in 3" :key="n" checkbox name="my-checkbox" :value="n" :title="'Checkbox ' + n"></f7-list-item>
+      </f7-list>
+
+      <f7-block-title>Radio buttons group</f7-block-title>
+      <f7-list form>
+        <f7-list-item v-for="n in 3" :key="n" radio name="my-radio" :checked="n === 1" :value="n" :title="'Radio ' + n"></f7-list-item>
+      </f7-list>
+
+      <f7-block-title>Buttons</f7-block-title>
+      <f7-block strong>
+        <f7-row tag="p">
+          <f7-button class="col">Button</f7-button>
+          <f7-button class="col" fill>Fill</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" raised>Raised</f7-button>
+          <f7-button class="col" raised fill>Raised Fill</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" round>Round</f7-button>
+          <f7-button class="col" round fill>Round Fill</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" outline>Outline</f7-button>
+          <f7-button class="col" round outline>Outline Round</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" small outline>Small</f7-button>
+          <f7-button class="col" small round outline>Small Round</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" small fill>Small</f7-button>
+          <f7-button class="col" small round fill>Small Round</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" large raised>Large</f7-button>
+          <f7-button class="col" large fill raised>Large Fill</f7-button>
+        </f7-row>
+        <f7-row tag="p">
+          <f7-button class="col" large fill raised color="red">Large Red</f7-button>
+          <f7-button class="col" large fill raised color="green">Large Green</f7-button>
+        </f7-row>
+      </f7-block>
+    </f7-page>
+  </template>
+
+  <!-- Dynamic Routing Page Template -->
+  <template id="page-dynamic-routing">
+    <f7-page>
+      <f7-navbar title="Dynamic Route" back-link="Back"></f7-navbar>
+      <f7-block strong>
+        <ul>
+          <li><b>Url:</b> {{$f7route.url}}</li>
+          <li><b>Path:</b> {{$f7route.path}}</li>
+          <li><b>Hash:</b> {{$f7route.hash}}</li>
+          <li><b>Params:</b>
+            <ul>
+              <li v-for="(value, key) in $f7route.params" :key="key"><b>{{key}}:</b> {{value}}</li>
+            </ul>
+          </li>
+          <li><b>Query:</b>
+            <ul>
+              <li v-for="(value, key) in $f7route.query" :key="key"><b>{{key}}:</b> {{value}}</li>
+            </ul>
+          </li>
+          <li><b>Route:</b> {{$f7route.route}}</li>
+        </ul>
+      </f7-block>
+      <f7-block strong>
+        <f7-link @click="$f7router.back()">Go back via Router API</f7-link>
+      </f7-block>
+    </f7-page>
+  </template>
+
+  <!-- Page Not Found Template -->
+  <template id="page-not-found">
+    <f7-page>
+      <f7-navbar title="Not found" back-link="Back"></f7-navbar>
+      <f7-block strong>
+        <p>Sorry</p>
+        <p>Requested content not found.</p>
+      </f7-block>
+    </f7-page>
+  </template>
+
+  <!-- Cordova -->
+  <!--
+  <script src="cordova.js"></script>
+  -->
+
+  <!-- Framework7 library -->
+  <script src="libs/framework7/js/framework7.bundle.min.js"></script>
+
+  <!-- Vue -->
+  <script src="libs/vue/vue.min.js"></script>
+
+  <!-- Framework7-Vue plugin -->
+  <script src="libs/framework7-vue/framework7-vue.bundle.min.js"></script>
+
+  <!-- Your custom app scripts -->
+  <script src="js/main.js"></script>
 </body>
-
 </html>

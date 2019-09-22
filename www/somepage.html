@@ -1,0 +1,92 @@
+<div>
+        <f7-panel right cover>
+            <f7-view id="right-panel-view">
+                <f7-page>
+                    <div class="list media-list" style="margin: 0 auto; z-index: 2;">
+                        <ul>
+                            <li class="media-item" style="position: fixed; top: 0; right: 0; width: 100%;     height: 177px; background: #726c00; color: #fff;">
+                                <div class="item-content" style="display: block; padding-top: 26px;">
+                                    <div class="item-inner">
+                                        <div class="item-after justify-content-space-between">
+                                            <span style="opacity: 0;">Log Out</span>
+                                            <!-- <div style="width: 50px; height: 50px">
+                                                <f7-icon f7="exit"></f7-icon>
+                                            </div> -->
+                                            <f7-link class="icon-btn" icon-f7="exit" color="white" @click="logout"></f7-link>
+                                        </div>
+                                        <div class="item-title-row">
+                                            <div class="item-title">
+                                                {{profile.name}}
+                                            </div>
+                                        </div>
+                                        <div class="item-subtitle">{{profile.email}}</div>
+                                        <div class="item-subtitle">{{profile.phone}}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <f7-list accordion-list style="margin-top: 177px;">
+                        <f7-list-item accordion-item title="About Green Carrier">
+                            <f7-accordion-content>
+                                <f7-block>
+                                    <p>
+                                        <strong><span class="emphasize"> Green carrier</span> ─ Clean living starts from green using!</strong>
+                                    </p>
+                                    <p>
+                                        There are increasingly more plastic and difficult-to-recycle paper meal boxes that are polluting the ocean. The fantastic & deep blue ocean has been covered with a bunch of waste. In terms of the recycling system of Taiwan, we are famous for the 58% rate in recycling and are honored as "The Talent of Dealing with Waste" by Wall Street Journal. However, the high cost and low profit are always the excuses for every country to ignore the problem. We consider that Taiwan has been the advanced model to be friendly to our environment, moreover, we can develop the sharing & lending system to reuse a cup or a box again and again.
+                                    </p>
+                                </f7-block>
+                            </f7-accordion-content>
+                        </f7-list-item>
+
+                        <f7-list-item accordion-item title="Privacy Policy">
+                            <f7-accordion-content>
+                                <f7-block>
+                                    <p>
+                                        <strong><span class="emphasize"> Green carrier</span> ─ Clean living starts from green using!</strong>
+                                    </p>
+                                    <p>
+                                        Privacy Policy
+                                    </p>
+                                </f7-block>
+                            </f7-accordion-content>
+                        </f7-list-item>
+
+                        <f7-list-item accordion-item title="Contact Us">
+                            <f7-accordion-content>
+                                <f7-list>
+                                    <f7-list-item header="E-mail" title="GreenCarrier@gmail.com">
+                                </f7-list>
+                                <f7-list>
+                                    <f7-list-item header="Phone" title="+886 987654321">
+                                </f7-list>
+                                <f7-list>
+                                    <f7-list-item header="Address" title="No. 168, Section 1, Daxue Road, Minxiong Township, Chiayi County, Taiwan">
+                                </f7-list>
+                            </f7-accordion-content>
+                        </f7-list-item>
+                        <!-- <f7-list-item accordion-item title="System">
+                            <f7-accordion-content>
+                                <f7-list>
+                                    <f7-list-item header="Version" title="v1.0.0 Beta">
+                                </f7-list>
+                                <f7-list>
+                                    <f7-list-item header="Developer" title="Green Carrier Team">
+                                </f7-list>
+                                <f7-list>
+                                    <f7-list-item header="Copyright" title="© 2019 Green Carrier Team">
+                                </f7-list>
+                            </f7-accordion-content>
+                        </f7-list-item> -->
+
+                        <f7-block style="color: #888; letter-spacing: 1px;">
+                            <strong>Green Carrier</strong><br>
+                            Version 1.0.0 Beta
+                        </f7-block>
+                    </f7-list>
+                </f7-page>
+            </f7-view>
+        </f7-panel>
+    </div>

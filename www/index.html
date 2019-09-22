@@ -1,363 +1,567 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <!--
-  Customize this policy to fit your own app's needs. For more guidance, see:
-      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-  Some notes:
-      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-          * Enable inline JS: add 'unsafe-inline' to default-src
-  -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#2196f3">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <title>Green Carrier</title>
-  <link rel="stylesheet" href="libs/framework7/css/framework7.bundle.min.css">
-  <link rel="stylesheet" href="css/icons.css">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#35a446">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Green Carrier</title>
+    <link rel="stylesheet" href="./libs/framework7/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="./css/icons.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-  <div id="app">
-    <f7-app :params="f7params">
-      <!-- Statusbar -->
-      <f7-statusbar></f7-statusbar>
+    <div id="app">
+        <f7-app :params="f7params">
+            <!-- Statusbar -->
+            <f7-statusbar></f7-statusbar>
 
-      <!-- Left Panel -->
-      <f7-panel left reveal theme-dark>
-        <f7-view id="left-panel-view">
-          <f7-page>
-            <f7-navbar title="Left Panel"></f7-navbar>
-            <f7-block strong>
-              <p>Left panel content goes here</p>
-            </f7-block>
-            <f7-block-title>Load page in panel</f7-block-title>
-            <f7-list>
-              <f7-list-item link="/about/" title="About"></f7-list-item>
-              <f7-list-item link="/form/" title="Form"></f7-list-item>
-            </f7-list>
-            <f7-block-title>Load page in main view</f7-block-title>
-            <f7-list>
-              <f7-list-item link="/about/" title="About" view="#main-view"
-              panel-close></f7-list-item>
-              <f7-list-item link="/form/" title="Form" view="#main-view"
-              panel-close></f7-list-item>
-            </f7-list>
-          </f7-page>
-        </f7-view>
-      </f7-panel>
+            <!-- Right Panel -->
+            <template v-if="isLoggedIn">
+                <div>
+                    <f7-panel right cover>
+                        <f7-view id="right-panel-view">
+                            <f7-page>
+                                <div class="list media-list" style="margin: 0 auto; z-index: 2;">
+                                    <ul>
+                                        <li class="media-item" style="position: fixed; top: 0; right: 0; width: 100%; height: 177px; background: #726c00; color: #fff;">
+                                            <div class="item-content" style="display: block; padding-top: 26px;">
+                                                <div class="item-inner">
+                                                    <div class="item-after justify-content-space-between">
+                                                        <span style="opacity: 0;">Log Out</span>
+                                                        <f7-link class="icon-btn" icon-f7="exit" color="white" @click="logout"></f7-link>
+                                                    </div>
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">
+                                                            {{profile.name}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="item-subtitle">{{profile.email}}</div>
+                                                    <div class="item-subtitle">{{profile.phone}}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
 
-      <!-- Right Panel -->
-      <f7-panel right cover theme-dark>
-        <f7-view id="right-panel-view">
-          <f7-page>
-            <f7-navbar title="Right Panel" sliding></f7-navbar>
-            <f7-block>
-              <p>Right panel content goes here</p>
-            </f7-block>
-            <f7-block-title>Load page in panel</f7-block-title>
-            <f7-list>
-              <f7-list-item link="/about/" title="About"></f7-list-item>
-              <f7-list-item link="/form/" title="Form"></f7-list-item>
-            </f7-list>
-            <f7-block-title>Load page in main view</f7-block-title>
-            <f7-list>
-              <f7-list-item link="/about/" title="About" view="#main-view"
-              panel-close></f7-list-item>
-              <f7-list-item link="/form/" title="Form" view="#main-view"
-              panel-close></f7-list-item>
-            </f7-list>
-          </f7-page>
-        </f7-view>
-      </f7-panel>
+                                <f7-list accordion-list style="margin-top: 177px;">
+                                    <f7-list-item accordion-item title="About Green Carrier">
+                                        <f7-accordion-content>
+                                            <f7-block>
+                                                <p>
+                                                    <strong><span class="emphasize"> Green carrier</span> ─ Clean living starts from green using!</strong>
+                                                </p>
+                                                <p>
+                                                    There are increasingly more plastic and difficult-to-recycle paper meal boxes that are polluting the ocean. The fantastic & deep blue ocean has been covered with a bunch of waste. In terms of the recycling system of Taiwan, we are famous for the 58% rate in recycling and are honored as "The Talent of Dealing with Waste" by Wall Street Journal. However, the high cost and low profit are always the excuses for every country to ignore the problem. We consider that Taiwan has been the advanced model to be friendly to our environment, moreover, we can develop the sharing & lending system to reuse a cup or a box again and again.
+                                                </p>
+                                            </f7-block>
+                                        </f7-accordion-content>
+                                    </f7-list-item>
 
-      <!-- Main View -->
-      <f7-view id="main-view" main class="safe-areas">
-        <f7-page>
-          <f7-navbar>
-            <f7-nav-left>
-              <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu"
-              panel-open="left"></f7-link>
-            </f7-nav-left>
-            <f7-nav-title>My App</f7-nav-title>
-            <f7-nav-right>
-              <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu"
-              panel-open="right"></f7-link>
-            </f7-nav-right>
-          </f7-navbar>
-          <f7-toolbar bottom>
-            <f7-link>Left Link</f7-link>
-            <f7-link>Right Link</f7-link>
-          </f7-toolbar>
-          <f7-block strong>
-            <p>Here is your blank Framework7 app. Let's see what we have here.</p>
-          </f7-block>
-          <f7-block-title>Navigation</f7-block-title>
-          <f7-list>
-            <f7-list-item link="/about/" title="About"></f7-list-item>
-            <f7-list-item link="/form/" title="Form"></f7-list-item>
-          </f7-list>
-          <f7-block-title>Modals</f7-block-title>
-          <f7-block strong>
-            <f7-row>
-              <f7-col width="50">
-                <f7-button fill raised popup-open="#popup">Popup</f7-button>
-              </f7-col>
-              <f7-col width="50">
-                <f7-button fill raised login-screen-open="#login-screen">Login Screen</f7-button>
-              </f7-col>
-            </f7-row>
-          </f7-block>
-          <f7-block-title>Panels</f7-block-title>
-          <f7-block strong>
-            <f7-row>
-              <f7-col width="50">
-                <f7-button fill raised panel-open="left">Left Panel</f7-button>
-              </f7-col>
-              <f7-col width="50">
-                <f7-button fill raised panel-open="right">Right Panel</f7-button>
-              </f7-col>
-            </f7-row>
-          </f7-block>
-          <f7-list>
-            <f7-list-item link="/dynamic-route/blog/45/post/125/?foo=bar#about" title="Dynamic Route"></f7-list-item>
-            <f7-list-item link="/load-something-that-doesnt-exist/" title="Default Route (404)"></f7-list-item>
-          </f7-list>
+                                    <f7-list-item accordion-item title="Privacy Policy">
+                                        <f7-accordion-content>
+                                            <f7-block>
+                                                <p>
+                                                    <strong><span class="emphasize"> Green carrier</span> ─ Clean living starts from green using!</strong>
+                                                </p>
+                                                <p>
+                                                    Privacy Policy
+                                                </p>
+                                            </f7-block>
+                                        </f7-accordion-content>
+                                    </f7-list-item>
+
+                                    <f7-list-item accordion-item title="Contact Us">
+                                        <f7-accordion-content>
+                                            <f7-list>
+                                                <f7-list-item header="E-mail" title="GreenCarrier@gmail.com">
+                                            </f7-list>
+                                            <f7-list>
+                                                <f7-list-item header="Phone" title="+886 987654321">
+                                            </f7-list>
+                                            <f7-list>
+                                                <f7-list-item header="Address" title="No. 168, Section 1, Daxue Road, Minxiong Township, Chiayi County, Taiwan">
+                                            </f7-list>
+                                        </f7-accordion-content>
+                                    </f7-list-item>
+
+                                    <f7-block style="color: #888; letter-spacing: 1px;">
+                                        <strong>Green Carrier</strong><br>
+                                        Version 1.0.0 Beta
+                                    </f7-block>
+                                </f7-list>
+                            </f7-page>
+                        </f7-view>
+                    </f7-panel>
+                </div>
+            </template>
+
+            <!-- Main View -->
+            <f7-view id="main-view" main class="safe-areas">
+                <f7-page>
+                    <template v-if="isOpeningReady">
+                        <div class="opening-animation">
+                            <div class="opening-logo-scene">
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <img :class="{ 'opacity-1': openingAnimation[0] }" src="./assets/logo.svg" style="width: 100%; max-width: 500px;" />
+                                    </f7-row>
+                                </f7-block>
+                            </div>
+                            <f7-block>
+                                <span :class="{ 'opacity-1': openingAnimation[1] }"><b style="font-size: 2em;">E</b>VERYONE</span>
+                                <span :class="{ 'opacity-1': openingAnimation[2] }" style="font-size: .8em;">can be a green carrier !</span>
+                            </f7-block>
+                            <f7-block style="padding: 0.8em .6em; ">
+                                <span :class="{ 'opacity-1': openingAnimation[4] }" style="font-size: .8em;">Clean living starts from</span>
+                                <span :class="{ 'opacity-1': openingAnimation[6] }" style="padding-left: 30px; color: #35a446;">GREEN</span>
+                                <span :class="{ 'opacity-1': openingAnimation[7] }" style="padding-left: 10px; color: #35a446;">USING !</span>
+                            </f7-block>
+                            <f7-block>
+                                <f7-row class="justify-content-space-between">
+                                    <f7-col tag="b"></f7-col>
+                                    <f7-col tag="b" width="30">
+                                        <f7-button :class="{ 'opacity-1': openingAnimation[2] }" @click="skipOpening">skip</f7-button>
+                                    </f7-col>
+                                </f7-row>
+                            </f7-block>
+                        </div>
+                    </template>
+
+                    <template v-if="isAppReady">
+                        <template id="navbar" v-if="isLoggedIn">
+                            <f7-navbar>
+                                <f7-nav-left>
+                                    <f7-chip :text="profile.name" class="color-chip-white mr-em-2" media-bg-color="green">
+                                        <f7-icon f7="person" slot="media"></f7-icon>
+                                    </f7-chip>
+                                    <f7-chip :text="profile.point" class="color-chip-white" media-bg-color="green">
+                                        <f7-icon f7="money_dollar" slot="media"></f7-icon>
+                                    </f7-chip>
+                                </f7-nav-left>
+                                <f7-nav-right>
+                                    <f7-link icon-f7="gear" color="white" panel-open="right"></f7-link>
+                                </f7-nav-right>
+                            </f7-navbar>
+                        </template>
+
+                        <template id="page-main" v-if="isLoggedIn">
+                            <template v-if="!isEmailVerified">
+                                <f7-block>
+                                    <strong style="font-size: 1.4em;">Please verify your e-mail first.</strong>
+                                </f7-block>
+                                <f7-block>
+                                    <f7-row>
+                                        <f7-col tag="span" width="40">
+                                            <f7-button fill raised @click="sendVerification">Send</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                            </template>
+
+                            <template v-if="isEmailVerified">
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <img src="./assets/banner.svg" style="width: 100%;" />
+                                    </f7-row>
+                                </f7-block>
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <f7-col tag="span" width="40">
+                                            <f7-button large fill raised href="/status/">Status</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <f7-col tag="span" width="40">
+                                            <f7-button large fill raised @click="lending">Borrow</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <f7-col tag="span" width="40">
+                                            <f7-button large fill raised href="/search/">Search</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <f7-col tag="span" width="40">
+                                            <f7-button large fill raised href="/report/">Report</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                                <template v-if="isAdmin">
+                                    <f7-block>
+                                        <f7-row class="justify-content-center">
+                                            <f7-col tag="span" width="40">
+                                                <f7-button large fill raised href="/admin/">Management</f7-button>
+                                            </f7-col>
+                                        </f7-row>
+                                    </f7-block>
+                                </template>
+                            </template>
+                        </template>
+
+                        <template v-if="!isLoggedIn">
+                            <template id="login-page" v-if="switchForm">
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <img src="./assets/banner.svg" style="width: 100%;" />
+                                    </f7-row>
+                                </f7-block>
+                                <f7-list inline-labels no-hairlines-md>
+                                    <f7-list-input
+                                        type="email"
+                                        placeholder="E-mail"
+                                        :value="loginForm.email"
+                                        @input="loginForm.email=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="email_fill" slot="media"></f7-icon>
+                                    </f7-list-input>
+
+                                    <f7-list-input
+                                        type="password"
+                                        placeholder="Password"
+                                        :value="loginForm.password"
+                                        @input="loginForm.password=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="lock" slot="media"></f7-icon>
+                                    </f7-list-input>
+                                </f7-list>
+                                <f7-block>
+                                    <f7-row>
+                                        <f7-col tag="span">
+                                            <f7-button outline @click="switchla">Register</f7-button>
+                                        </f7-col>
+                                        <f7-col tag="span">
+                                            <f7-button fill @click="login">Sign In</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                            </template>
+
+                            <template id="signup-page" v-if="!switchForm">
+                                <f7-block>
+                                    <f7-row class="justify-content-center">
+                                        <img src="./assets/banner.svg" style="width: 100%;" />
+                                    </f7-row>
+                                </f7-block>
+                                <f7-list inline-labels no-hairlines-md>
+                                    <f7-list-input
+                                        type="text"
+                                        placeholder="Username"
+                                        :value="signupForm.username"
+                                        @input="signupForm.username=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="person" slot="media"></f7-icon>
+                                    </f7-list-input>
+
+                                    <f7-list-input
+                                        type="tel"
+                                        placeholder="Phone"
+                                        :value="signupForm.phone"
+                                        @input="signupForm.phone=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="phone" slot="media"></f7-icon>
+                                    </f7-list-input>
+
+                                    <f7-list-input
+                                        type="email"
+                                        placeholder="E-mail"
+                                        :value="signupForm.email"
+                                        @input="signupForm.email=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="email_fill" slot="media"></f7-icon>
+                                    </f7-list-input>
+
+                                    <f7-list-input
+                                        type="password"
+                                        placeholder="Password"
+                                        :value="signupForm.password"
+                                        @input="signupForm.password=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="lock" slot="media"></f7-icon>
+                                    </f7-list-input>
+
+                                    <f7-list-input
+                                        type="password"
+                                        placeholder="Confirm Password"
+                                        :value="signupForm.passwordCheck"
+                                        @input="signupForm.passwordCheck=$event.target.value"
+                                        required
+                                        clear-button>
+                                        <f7-icon f7="unlock" slot="media"></f7-icon>
+                                    </f7-list-input>
+                                </f7-list>
+                                <f7-block>
+                                    <f7-row>
+                                        <f7-col tag="span">
+                                            <f7-button outline @click="switchla">Sign In</f7-button>
+                                        </f7-col>
+                                        <f7-col tag="span">
+                                            <f7-button fill @click="signup">Register</f7-button>
+                                        </f7-col>
+                                    </f7-row>
+                                </f7-block>
+                            </template>
+                        </template>
+                    </template>
+                </f7-page>
+            </f7-view>
+        </f7-app>
+    </div>
+
+    <!-- TODO: Page admin -->
+    <template id="page-admin">
+        <f7-page :page-content="false">
+            <f7-navbar title="Management" back-link="Back"></f7-navbar>
+            <f7-toolbar tabbar bottom>
+                <f7-link tab-link="#tab-cups" tab-link-active>Cups</f7-link>
+                <f7-link tab-link="#tab-record">Record</f7-link>
+                <f7-link tab-link="#tab-pre-signup">N/A</f7-link>
+            </f7-toolbar>
+            <f7-tabs swipeable>
+                <!-- Page Cups -->
+                <f7-tab id="tab-cups" class="page-content ptr-content" @ptr:refresh.native="cupsStatusRefresh" tab-active>
+                    <div class="ptr-preloader">
+                        <div class="preloader"></div>
+                        <div class="ptr-arrow"></div>
+                    </div>
+                    <f7-block>
+                        <f7-row>
+                            <f7-col tag="span" width="40">
+                                <f7-button large fill raised @click="newcup">New Cups</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="label-cell">Cups ID</th>
+                                    <th class="label-cell">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="!cups.lists.length">
+                                    <td class="label-cell">None</td>
+                                </tr>
+                                <tr v-for="(item, index) in cups.lists">
+                                    <td class="label-cell">{{item.name}}</td>
+                                    <template v-if="item.status">
+                                        <td class="label-cell">
+                                            <span class="gc-status-return"></span>
+                                        </td>
+                                    </template>
+                                    <template v-if="!item.status">
+                                        <td class="label-cell">
+                                            <span class="gc-status-rent"></span>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <f7-block-footer>
+                        <p>Last update - {{ cups.lastUpdateTime }}</p>
+                    </f7-block-footer>
+                </f7-tab>
+                <!-- Page Settings -->
+                <f7-tab id="tab-record" class="page-content ptr-content" @ptr:refresh.native="recordStatusRefresh">
+                    <div class="ptr-preloader">
+                        <div class="preloader"></div>
+                        <div class="ptr-arrow"></div>
+                    </div>
+                    <f7-block-title>Record</f7-block-title>
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="label-cell">Cups ID</th>
+                                    <th class="label-cell">Status</th>
+                                    <th class="label-cell"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="!record.lists.length">
+                                    <td class="label-cell">None</td>
+                                </tr>
+                                <tr v-for="(item, index) in record.lists">
+                                    <td class="label-cell">{{item.name}}</td>
+                                    <template v-if="item.status">
+                                        <td class="label-cell">
+                                            <span class="gc-status-return"></span>
+                                        </td>
+                                        <td class="label-cell"></td>
+                                    </template>
+                                    <template v-if="!item.status">
+                                        <td class="label-cell">
+                                            <span class="gc-status-rent"></span>
+                                        </td>
+                                        <td class="label-cell">
+                                            <f7-button class="text-color-red" @click="returnCup(item.id, item.name, index)">Return</f7-button>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <f7-block-footer>
+                        <p>Last update - {{ record.lastUpdateTime }}</p>
+                    </f7-block-footer>
+                </f7-tab>
+                <!-- Page Pre-Signup -->
+                <f7-tab id="tab-pre-signup" class="page-content" style="padding: 1em; font-size: 2em; font-weight: bold;"> <!-- no-toolbar no-navbar no-swipeback login-screen -->
+                    <f7-block style="color: #6e6a2c;">
+                        <p style="margin: 0;"><span style="font-size: 2em;">E</span>VERYONE</p>
+                        <p style="margin: 0; font-size: .8em;">can be a green carrier !</p>
+                    </f7-block>
+                    <f7-block style="padding: 0.8em .6em; color: #6e6a2c;">
+                        <p>To start...</p>
+                        <p style="font-size: .8em;">You must have an account.</p>
+                    </f7-block>
+                    <f7-block>
+                        <f7-row class="justify-content-center">
+                            <f7-col tag="span">
+                                <f7-button large outline>Register</f7-button>
+                            </f7-col>
+                        </f7-row>
+                    </f7-block>
+                </f7-tab>
+            </f7-tabs>
         </f7-page>
-      </f7-view>
+    </template>
 
-      <!-- Popup -->
-      <f7-popup id="popup">
-        <f7-view>
-          <f7-page>
-            <f7-navbar title="Popup">
-              <f7-nav-right>
-                <f7-link popup-close>Close</f7-link>
-              </f7-nav-right>
-            </f7-navbar>
-            <f7-block>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto. Cupiditate laudantium rem nesciunt numquam, ipsam. Voluptates omnis, a inventore atque ratione aliquam. Omnis iusto nemo quos ullam obcaecati, quod.</f7-block>
-          </f7-page>
-        </f7-view>
-      </f7-popup>
+    <!-- TODO: Page Status -->
+    <template id="page-status">
+        <f7-page ptr @ptr:refresh="statusRefresh">
+            <f7-navbar class="gc-navbar" title="Status" back-link="Back"></f7-navbar>
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="label-cell">Borrow Date</th>
+                            <th class="label-cell">Status</th>
+                            <th class="label-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="!lists.length">
+                            <td class="label-cell">None</td>
+                            <td class="label-cell"></td>
+                            <td class="label-cell"></td>
+                        </tr>
+                        <tr v-for="(item, index) in lists">
+                            <td class="label-cell">{{item.time}}</td>
+                            <template v-if="item.status">
+                                <td class="label-cell">Returned</td>
+                                <td class="label-cell">
+                                    <span class="gc-status-return"></span>
+                                </td>
+                            </template>
+                            <template v-if="!item.status">
+                                <td class="label-cell text-color-red">Renting</td>
+                                <td class="label-cell">
+                                    <span class="gc-status-rent"></span>
+                                </td>
+                            </template>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <f7-block-footer>
+                <p>Last update - {{ lastUpdateTime }}</p>
+            </f7-block-footer>
+        </f7-page>
+    </template>
 
-      <!-- Login Screen -->
-      <f7-login-screen id="login-screen">
-        <f7-view>
-          <f7-page login-screen>
-            <f7-login-screen-title>Login</f7-login-screen-title>
-            <f7-list form>
-              <f7-list-input
-                label="Username"
-                name="username"
-                placeholder="Username"
-                type="text"
-              ></f7-list-input>
-              <f7-list-input
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="Password"
-              ></f7-list-input>
-            </f7-list>
-            <f7-list>
-              <f7-list-button title="Sign In" login-screen-close></f7-list-button>
-              <f7-block-footer>
-                <p>Click Sign In to close Login Screen</p>
-              </f7-block-footer>
-            </f7-list>
-          </f7-page>
-        </f7-view>
-      </f7-login-screen>
-    </f7-app>
-  </div>
+    <!-- Page Search Template -->
+    <template id="page-search">
+        <f7-page>
+            <f7-navbar title="Search" back-link="Back"></f7-navbar>
+            <f7-block>
+                <p>Search for nearby cooperated shops......</p>
+                <p>
+                    <img data-src="https://honginho.github.io/GreenCarrier/www/assets/map.png" width="1500" height="1500" class="lazy lazy-fade-in demo-lazy"/>
+                </p>
+            </f7-block>
+        </f7-page>
+    </template>
 
-  <!-- About Page Template -->
-  <template id="page-about">
-    <f7-page>
-      <f7-navbar title="About" back-link="Back"></f7-navbar>
-      <f7-block-title>About My App</f7-block-title>
-      <f7-block strong>
-        <p>Here is About page!</p>
-        <p>You can go <f7-link back>back</f7-link>.</p>
-        <p>Mauris posuere sit amet metus id venenatis. Ut ante dolor, tempor nec commodo rutrum, varius at sem. Nullam ac nisi non neque ornare pretium. Nulla mauris mauris, consequat et elementum sit amet, egestas sed orci. In hac habitasse platea dictumst.</p>
-        <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis. Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu metus elit. Ut vel diam dolor.</p>
-      </f7-block>
-    </f7-page>
-  </template>
+    <!-- Page Not Found Template -->
+    <template id="page-not-found">
+        <f7-page>
+            <f7-navbar title="Page not found" back-link="Back"></f7-navbar>
+            <f7-block strong>
+                <p>Sorry</p>
+                <p>Requested content not found.</p>
+            </f7-block>
+        </f7-page>
+    </template>
 
-  <!-- Form Page Template -->
-  <template id="page-form">
-    <f7-page>
-      <f7-navbar title="Form" back-link="Back"></f7-navbar>
-      <f7-block-title>Form Example</f7-block-title>
-      <f7-list form>
-        <f7-list-input
-          label="Name"
-          type="text"
-          placeholder="Name"
-        ></f7-list-input>
-        <f7-list-input
-          label="E-mail"
-          type="email"
-          placeholder="E-mail"
-        ></f7-list-input>
-        <f7-list-input
-          label="URL"
-          type="url"
-          placeholder="URL"
-        ></f7-list-input>
-        <f7-list-input
-          label="Password"
-          type="password"
-          placeholder="Password"
-        ></f7-list-input>
-        <f7-list-input
-          label="Phone"
-          type="tel"
-          placeholder="Phone"
-        ></f7-list-input>
-        <f7-list-input
-          label="Gender"
-          type="select"
-        >
-          <option selected>Male</option>
-          <option>Female</option>
-        </f7-list-item>
-        <f7-list-input
-          label="Birth date"
-          type="date"
-          placeholder="Birth date" value="2014-04-30"
-        ></f7-list-input>
-        <f7-list-item title="Toggle">
-          <f7-toggle slot="after"></f7-toggle>
-        </f7-list-item>
-        <f7-list-input
-          label="Slider"
-          :input="false"
-        >
-          <f7-range slot="input" min="0" max="100" value="50" step="1" :label="true"></f7-range>
-        </f7-list-input>
-        <f7-list-input
-          label="Textarea"
-          type="textarea"
-          placeholder="Bio"
-        ></f7-list-input>
-        <f7-list-input
-          label="Resizable"
-          type="textarea"
-          placeholder="Bio"
-          resizable
-        ></f7-list-input>
-      </f7-list>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: '',
+            authDomain: '',
+            databaseURL: '',
+            projectId: '',
+            storageBucket: '',
+            messagingSenderId: ''
+        };
+        firebase.initializeApp(config);
 
-      <f7-block-title>Checkbox group</f7-block-title>
-      <f7-list form>
-        <f7-list-item v-for="n in 3" :key="n" checkbox name="my-checkbox" :value="n" :title="'Checkbox ' + n"></f7-list-item>
-      </f7-list>
+        // Make auth and firestore references
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-      <f7-block-title>Radio buttons group</f7-block-title>
-      <f7-list form>
-        <f7-list-item v-for="n in 3" :key="n" radio name="my-radio" :checked="n === 1" :value="n" :title="'Radio ' + n"></f7-list-item>
-      </f7-list>
+        // Update fierstore settings
+        /* The timestampsInSnapshots setting now defaults to true and you no
+         * longer need to explicitly set it. In a future release, the setting
+         * will be removed entirely and so it is recommended that you remove it
+         * from your firestore.settings() call now.
+         */
+        // db.settings({ timestampsInSnapshots: true });
+    </script>
 
-      <f7-block-title>Buttons</f7-block-title>
-      <f7-block strong>
-        <f7-row tag="p">
-          <f7-button class="col">Button</f7-button>
-          <f7-button class="col" fill>Fill</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" raised>Raised</f7-button>
-          <f7-button class="col" raised fill>Raised Fill</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" round>Round</f7-button>
-          <f7-button class="col" round fill>Round Fill</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" outline>Outline</f7-button>
-          <f7-button class="col" round outline>Outline Round</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" small outline>Small</f7-button>
-          <f7-button class="col" small round outline>Small Round</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" small fill>Small</f7-button>
-          <f7-button class="col" small round fill>Small Round</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" large raised>Large</f7-button>
-          <f7-button class="col" large fill raised>Large Fill</f7-button>
-        </f7-row>
-        <f7-row tag="p">
-          <f7-button class="col" large fill raised color="red">Large Red</f7-button>
-          <f7-button class="col" large fill raised color="green">Large Green</f7-button>
-        </f7-row>
-      </f7-block>
-    </f7-page>
-  </template>
+    <!-- Cordova -->
+    <script src="./cordova.js"></script>
 
-  <!-- Dynamic Routing Page Template -->
-  <template id="page-dynamic-routing">
-    <f7-page>
-      <f7-navbar title="Dynamic Route" back-link="Back"></f7-navbar>
-      <f7-block strong>
-        <ul>
-          <li><b>Url:</b> {{$f7route.url}}</li>
-          <li><b>Path:</b> {{$f7route.path}}</li>
-          <li><b>Hash:</b> {{$f7route.hash}}</li>
-          <li><b>Params:</b>
-            <ul>
-              <li v-for="(value, key) in $f7route.params" :key="key"><b>{{key}}:</b> {{value}}</li>
-            </ul>
-          </li>
-          <li><b>Query:</b>
-            <ul>
-              <li v-for="(value, key) in $f7route.query" :key="key"><b>{{key}}:</b> {{value}}</li>
-            </ul>
-          </li>
-          <li><b>Route:</b> {{$f7route.route}}</li>
-        </ul>
-      </f7-block>
-      <f7-block strong>
-        <f7-link @click="$f7router.back()">Go back via Router API</f7-link>
-      </f7-block>
-    </f7-page>
-  </template>
+    <!-- Framework7 library -->
+    <script src="./libs/framework7/js/framework7.bundle.min.js"></script>
 
-  <!-- Page Not Found Template -->
-  <template id="page-not-found">
-    <f7-page>
-      <f7-navbar title="Not found" back-link="Back"></f7-navbar>
-      <f7-block strong>
-        <p>Sorry</p>
-        <p>Requested content not found.</p>
-      </f7-block>
-    </f7-page>
-  </template>
+    <!-- Vue -->
+    <script src="./libs/vue/vue.min.js"></script>
 
-  <!-- Cordova -->
-  <!--
-  <script src="cordova.js"></script>
-  -->
+    <!-- Framework7-Vue plugin -->
+    <script src="./libs/framework7-vue/framework7-vue.bundle.min.js"></script>
 
-  <!-- Framework7 library -->
-  <script src="libs/framework7/js/framework7.bundle.min.js"></script>
-
-  <!-- Vue -->
-  <script src="libs/vue/vue.min.js"></script>
-
-  <!-- Framework7-Vue plugin -->
-  <script src="libs/framework7-vue/framework7-vue.bundle.min.js"></script>
-
-  <!-- Your custom app scripts -->
-  <script src="js/main.js"></script>
+    <!-- Your custom app scripts -->
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
 </body>
+
 </html>

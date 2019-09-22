@@ -11,12 +11,6 @@
     --f7-bars-text-color: #fff;
 }
 
-.color-gc { color: var(--f7-theme-color) !important; }
-
-.flex-wrap-nowrap {
-    flex-wrap: nowrap;
-}
-
 .navbar {
     background-color: var(--f7-theme-color);
 }
@@ -28,6 +22,87 @@
 
 .navbar .navbar-inner .title {
     color: #fff;
+}
+
+input,
+textarea {
+    color: var(--f7-theme-color) !important;
+    font-weight: bold !important;
+}
+
+.md .navbar-inner {
+    padding: 0 8px;
+}
+
+.list.media-list .item-inner {
+    letter-spacing: 1px;
+}
+
+.list .item-title {
+    font-weight: bold;
+    overflow: scroll;
+    text-overflow: initial;
+}
+
+.list .item-subtitle {
+    padding-left: 10px;
+    color: #ddd;
+}
+
+.panel-backdrop {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.accordion-item {
+    background-color: #fafafa;
+}
+
+.accordion-item-content {
+    background-color: #f0f0f0;
+}
+
+.accordion-item-content li {
+    background-color: #f0f0f0;
+}
+
+/* opening animation */
+.opening-animation {
+    width: 100%;
+    position: absolute;
+    padding: 1em;
+    box-sizing: border-box;
+    color: #6e6a2c;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.opening-animation p,
+.opening-animation span,
+.opening-animation img,
+.opening-animation a {
+    opacity: 0;
+    transition: 1s;
+}
+
+.opening-animation p {
+    margin: 0;
+}
+
+.opening-animation .opening-logo-scene {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.opacity-1 {
+    opacity: 1 !important;
+}
+
+.color-gc { color: var(--f7-theme-color) !important; }
+
+.flex-wrap-nowrap {
+    flex-wrap: nowrap;
 }
 
 .gc-status-rent {
@@ -42,20 +117,25 @@
     border-radius: 50%;
 }
 
-input,
-textarea {
-    color: var(--f7-theme-color) !important;
-    font-weight: bold !important;
+.mr-em-2 {
+    margin-right: 2em;
 }
 
-.font-weight-bold-inner .item-inner .item-title {
-    font-weight: bold !important;
-}
-
-.color-chip-white .chip-label {
+.emphasize {
+    padding: 0 4px;
+    background-color: #35a446;
+    border-radius: 4px;
     color: #fff;
 }
 
-.mr-em-2 {
-    margin-right: 2em;
+.icon-btn {
+    padding: 16px;
+    background-color: rgba(0, 0, 0, .2);
+    border-radius: 50%;
+}
+
+img.demo-lazy {
+    display: block;
+    width: 100%;
+    height: auto;
 }
